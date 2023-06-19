@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import TeamEntity from '../entities/team-entity';
 import { Image } from 'expo-image';
 import { useEffect, useState } from 'react';
@@ -21,14 +21,14 @@ const mockData: TeamEntity[] = [
   }
 ]
 
-export default function HomePage({navigation}) {
+export default function HomePage({ navigation }) {
 
   const [teams, setTeams] = useState([]);
 
   useEffect(() => {
     //Acessar a api
     var myHeaders = new Headers();
-    myHeaders.append("Authorization", "Bearer test_44f629640bfd651884fdfe0e0b8cbf");
+    myHeaders.append("Authorization", "Bearer live_65cd9fc2c8c3ed2f7a7e84b1e71de5");
     myHeaders.append("Cookie", "PHPSESSID=0719g0tmuceo5e1gaunt8onhev");
 
     var requestOptions = {
@@ -70,14 +70,15 @@ export default function HomePage({navigation}) {
         data={teams}
         renderItem={(team) =>
           <TouchableOpacity onPress={() => {
-            navigation.navigate('detail',team.item);
+            navigation.navigate('detail', team.item);
           }} >
             <View style={styles.team_item}>
-              <Image source={team.item.shieldUrl} style={styles.shield} />
+              <Image style={styles.shield} source={team.item.shieldUrl} />
               <Text style={styles.team_name}>{team.item.name}</Text>
               <Text style={styles.number}>{team.item.points}</Text>
             </View>
           </TouchableOpacity>
+
         }
         keyExtractor={item => item.id.toString()}
       />
@@ -127,5 +128,6 @@ const styles = StyleSheet.create({
     flex: 2,
     fontSize: 26,
     color: '#116804'
-  }
+  },
+  
 });
